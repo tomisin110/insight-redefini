@@ -6,11 +6,13 @@ import { Persona, personas, defaultPersona } from "./mock-data";
 type PersonaContextType = {
   persona: Persona;
   setPersonaById: (id: string) => void;
+  logout: () => void;
 };
 
 const PersonaContext = createContext<PersonaContextType>({
   persona: defaultPersona,
   setPersonaById: () => {},
+  logout: () => {},
 });
 
 export function PersonaProvider({ children }: { children: React.ReactNode }) {
@@ -32,8 +34,13 @@ export function PersonaProvider({ children }: { children: React.ReactNode }) {
     }
   }
 
+  function logout() {
+    window.localStorage.removeItem("ir-persona");
+    setPersona(defaultPersona);
+  }
+
   return (
-    <PersonaContext.Provider value={{ persona, setPersonaById }}>
+    <PersonaContext.Provider value={{ persona, setPersonaById, logout }}>
       {children}
     </PersonaContext.Provider>
   );

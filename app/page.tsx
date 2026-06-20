@@ -23,7 +23,11 @@ export default function Home() {
   return (
     <main className="min-h-screen flex bg-paper">
       <section className="hidden lg:flex lg:w-1/2 bg-ink text-white flex-col justify-between p-14">
-        <img src="/logo.png" alt="Insight Redefini" className="h-14 w-auto bg-white p-2 rounded-lg inline-block" />
+        <img
+          src="/logo.png"
+          alt="Insight Redefini"
+          className="h-14 w-auto self-start bg-white p-2 rounded-lg shrink-0"
+        />
 
         <div>
           <div className="text-xs font-semibold uppercase tracking-[0.18em] text-brand mb-4">

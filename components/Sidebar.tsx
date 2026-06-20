@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { usePersona } from "@/lib/persona-context";
 
 const allLinks = [
@@ -10,7 +11,8 @@ const allLinks = [
 ];
 
 export default function Sidebar({ active }: { active: string }) {
-  const { persona } = usePersona();
+  const { persona, logout } = usePersona();
+  const router = useRouter();
   const links = allLinks.filter((l) => l.roles.includes(persona.role));
 
   return (
@@ -40,22 +42,30 @@ export default function Sidebar({ active }: { active: string }) {
         </nav>
       </div>
 
-      <Link
-        href="/"
-        className="flex items-center gap-3 border-t border-hairline pt-4 hover:opacity-80 transition-opacity"
-      >
-        <span
-          className={`w-8 h-8 rounded-full ${persona.avatarColor} text-white text-xs font-semibold flex items-center justify-center shrink-0`}
-        >
-          {persona.initials}
-        </span>
-        <div>
-          <div className="text-sm text-ink leading-tight">{persona.name}</div>
-          <div className="text-[11px] uppercase tracking-wide text-slate mt-0.5 capitalize">
-            {persona.role}
+      <div className="border-t border-hairline pt-4">
+        <div className="flex items-center gap-3 mb-3">
+          <span
+            className={`w-8 h-8 rounded-full ${persona.avatarColor} text-white text-xs font-semibold flex items-center justify-center shrink-0`}
+          >
+            {persona.initials}
+          </span>
+          <div>
+            <div className="text-sm text-ink leading-tight">{persona.name}</div>
+            <div className="text-[11px] uppercase tracking-wide text-slate mt-0.5 capitalize">
+              {persona.role}
+            </div>
           </div>
         </div>
-      </Link>
+        <button
+          onClick={() => {
+            logout();
+            router.push("/");
+          }}
+          className="w-full text-left text-sm text-slate hover:text-brand px-3 py-2 rounded-lg hover:bg-hairline/40 transition-colors"
+        >
+          Log out
+        </button>
+      </div>
     </aside>
   );
 }

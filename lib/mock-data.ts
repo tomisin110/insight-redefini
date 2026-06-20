@@ -11,10 +11,10 @@ export type Persona = {
 
 export const personas: Persona[] = [
   { id: "arinze", name: "Arinze Okafor", initials: "AO", role: "staff", department: "Customer Operations", avatarColor: "bg-blue-600" },
-  { id: "kemi", name: "Kemi Onatoye", initials: "KO", role: "instructor", department: "Finance", avatarColor: "bg-purple-600" },
-  { id: "ayo", name: "Ayo Owoeye", initials: "AY", role: "instructor", department: "Compliance", avatarColor: "bg-emerald-600" },
-  { id: "seyi", name: "Oluwaseyi Layade", initials: "OL", role: "instructor", department: "Sales", avatarColor: "bg-amber-500" },
-  { id: "eniola", name: "Eniola Ogunmekan", initials: "EO", role: "instructor", department: "Marketing", avatarColor: "bg-rose-500" },
+  { id: "kemi", name: "Kemi Onatoye", initials: "KO", role: "instructor", department: "Treasury", avatarColor: "bg-purple-600" },
+  { id: "ayo", name: "Ayo Owoeye", initials: "AY", role: "instructor", department: "Human Resources", avatarColor: "bg-emerald-600" },
+  { id: "seyi", name: "Oluwaseyi Layade", initials: "OL", role: "instructor", department: "Leo Burnett", avatarColor: "bg-amber-500" },
+  { id: "eniola", name: "Eniola Ogunmekan", initials: "EO", role: "instructor", department: "Creative", avatarColor: "bg-rose-500" },
   { id: "gabriel", name: "Gabriel Babatunde", initials: "GB", role: "admin", department: "Administration", avatarColor: "bg-slate-700" },
 ];
 
@@ -53,8 +53,8 @@ export const courses: Course[] = [
     summary:
       "Core bookkeeping, expense coding, and the monthly close process every team lead should understand.",
     instructor: "Kemi Onatoye",
-    instructorTitle: "Head of Finance",
-    department: "Finance",
+    instructorTitle: "Head of Treasury",
+    department: "Treasury",
     progress: 65,
     status: "in-progress",
     mandatory: true,
@@ -83,8 +83,8 @@ export const courses: Course[] = [
     summary:
       "What's expected of every employee — conduct, confidentiality, and how to raise a concern.",
     instructor: "Ayo Owoeye",
-    instructorTitle: "Director of Compliance",
-    department: "Compliance",
+    instructorTitle: "Head of HR",
+    department: "Human Resources",
     progress: 20,
     status: "in-progress",
     mandatory: true,
@@ -109,8 +109,8 @@ export const courses: Course[] = [
     title: "Client Pitching",
     summary: "How to structure, design, and deliver a winning client pitch — from outline to close.",
     instructor: "Oluwaseyi Layade",
-    instructorTitle: "VP of Sales",
-    department: "Sales",
+    instructorTitle: "COO, Leo Burnett",
+    department: "Leo Burnett",
     progress: 0,
     status: "not-started",
     mandatory: false,
@@ -130,8 +130,8 @@ export const courses: Course[] = [
     title: "Copywriting Fundamentals",
     summary: "Writing clear, persuasive copy for product pages, emails, and campaigns that actually convert.",
     instructor: "Eniola Ogunmekan",
-    instructorTitle: "Head of Marketing",
-    department: "Marketing",
+    instructorTitle: "Deputy Creative Director",
+    department: "Creative",
     progress: 100,
     status: "completed",
     mandatory: false,
