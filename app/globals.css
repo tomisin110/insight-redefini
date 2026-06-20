@@ -3,13 +3,25 @@
 @tailwind utilities;
 
 :root {
+  --bg: #F7F8FA;
+  --surface: #FFFFFF;
+  --ink: #15171A;
+  --slate: #6B6D70;
+  --hairline: #E5E5E6;
   color-scheme: light;
 }
 
+.dark {
+  --bg: #14161A;
+  --surface: #1D2024;
+  --ink: #F2F2F3;
+  --slate: #9A9DA2;
+  --hairline: #2B2E33;
+  color-scheme: dark;
+}
+
 body {
-  background-color: #FFFFFF;
-  background-image:
-    linear-gradient(180deg, rgba(31,32,35,0.015) 0%, rgba(31,32,35,0) 200px);
+  background-color: var(--bg);
 }
 
 * {
@@ -28,16 +40,15 @@ body {
   }
 }
 
-.tab-notch {
-  position: relative;
+.card {
+  background-color: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 14px;
+  box-shadow: 0 1px 2px rgba(20,20,23,0.04);
+  transition: box-shadow 0.18s ease, transform 0.18s ease, border-color 0.18s ease;
 }
 
-.tab-notch::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 36px;
-  height: 8px;
-  background: #EC3148;
+.card:hover {
+  box-shadow: 0 12px 28px -10px rgba(20,20,23,0.14);
+  transform: translateY(-2px);
 }

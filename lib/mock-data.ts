@@ -1,10 +1,24 @@
-export type Role = "learner" | "instructor" | "admin";
+export type Role = "staff" | "instructor" | "admin";
 
-export const currentUser = {
-  name: "Adaeze Okonkwo",
-  role: "learner" as Role,
-  department: "Customer Operations",
+export type Persona = {
+  id: string;
+  name: string;
+  initials: string;
+  role: Role;
+  department: string;
+  avatarColor: string; // tailwind bg class
 };
+
+export const personas: Persona[] = [
+  { id: "arinze", name: "Arinze Okafor", initials: "AO", role: "staff", department: "Customer Operations", avatarColor: "bg-blue-600" },
+  { id: "kemi", name: "Kemi Onatoye", initials: "KO", role: "instructor", department: "Finance", avatarColor: "bg-purple-600" },
+  { id: "ayo", name: "Ayo Owoeye", initials: "AY", role: "instructor", department: "Compliance", avatarColor: "bg-emerald-600" },
+  { id: "seyi", name: "Oluwaseyi Layade", initials: "OL", role: "instructor", department: "Sales", avatarColor: "bg-amber-500" },
+  { id: "eniola", name: "Eniola Ogunmekan", initials: "EO", role: "instructor", department: "Marketing", avatarColor: "bg-rose-500" },
+  { id: "gabriel", name: "Gabriel Babatunde", initials: "GB", role: "admin", department: "Administration", avatarColor: "bg-slate-700" },
+];
+
+export const defaultPersona = personas[0];
 
 export type Lesson = {
   id: string;
@@ -26,7 +40,7 @@ export type Course = {
   instructor: string;
   instructorTitle: string;
   department: string;
-  progress: number; // 0-100
+  progress: number;
   status: "not-started" | "in-progress" | "completed";
   modules: Module[];
   mandatory: boolean;
@@ -34,106 +48,108 @@ export type Course = {
 
 export const courses: Course[] = [
   {
-    slug: "data-protection-fundamentals",
-    title: "Data Protection Fundamentals",
+    slug: "accounting-essentials",
+    title: "Accounting Essentials",
     summary:
-      "How we classify, handle, and store sensitive company and customer data — required for all staff.",
-    instructor: "Tunde Bakare",
-    instructorTitle: "Chief Information Officer",
-    department: "Compliance",
+      "Core bookkeeping, expense coding, and the monthly close process every team lead should understand.",
+    instructor: "Kemi Onatoye",
+    instructorTitle: "Head of Finance",
+    department: "Finance",
     progress: 65,
     status: "in-progress",
     mandatory: true,
     modules: [
       {
         id: "m1",
-        title: "Classifying information",
+        title: "Reading a P&L",
         lessons: [
-          { id: "l1", title: "Public vs internal vs restricted", durationMin: 8, completed: true },
-          { id: "l2", title: "Handling customer records", durationMin: 11, completed: true },
+          { id: "l1", title: "Revenue vs. margin", durationMin: 8, completed: true },
+          { id: "l2", title: "Common reporting mistakes", durationMin: 11, completed: true },
         ],
       },
       {
         id: "m2",
-        title: "Incident response",
+        title: "Expense management",
         lessons: [
-          { id: "l3", title: "Recognising a breach", durationMin: 9, completed: true },
-          { id: "l4", title: "Who to notify, and when", durationMin: 6, completed: false },
+          { id: "l3", title: "Coding expenses correctly", durationMin: 9, completed: true },
+          { id: "l4", title: "Month-end close checklist", durationMin: 6, completed: false },
         ],
       },
     ],
   },
   {
-    slug: "leading-through-change",
-    title: "Leading Through Change",
+    slug: "staff-policies-handbook-ethics",
+    title: "Staff Policies, Handbook & Ethics",
     summary:
-      "A management primer on guiding teams through restructuring, drawn from this year's leadership offsite.",
-    instructor: "Folake Adeyemi",
-    instructorTitle: "VP, People & Culture",
-    department: "Leadership",
+      "What's expected of every employee — conduct, confidentiality, and how to raise a concern.",
+    instructor: "Ayo Owoeye",
+    instructorTitle: "Director of Compliance",
+    department: "Compliance",
     progress: 20,
     status: "in-progress",
+    mandatory: true,
+    modules: [
+      {
+        id: "m1",
+        title: "The employee handbook",
+        lessons: [
+          { id: "l1", title: "Code of conduct", durationMin: 10, completed: true },
+          { id: "l2", title: "Confidentiality & data handling", durationMin: 12, completed: false },
+        ],
+      },
+      {
+        id: "m2",
+        title: "Raising concerns",
+        lessons: [{ id: "l3", title: "Reporting a violation", durationMin: 7, completed: false }],
+      },
+    ],
+  },
+  {
+    slug: "client-pitching",
+    title: "Client Pitching",
+    summary: "How to structure, design, and deliver a winning client pitch — from outline to close.",
+    instructor: "Oluwaseyi Layade",
+    instructorTitle: "VP of Sales",
+    department: "Sales",
+    progress: 0,
+    status: "not-started",
     mandatory: false,
     modules: [
       {
         id: "m1",
-        title: "Reading the room",
+        title: "Structuring the pitch",
         lessons: [
-          { id: "l1", title: "Signals of team anxiety", durationMin: 10, completed: true },
-          { id: "l2", title: "Setting expectations early", durationMin: 12, completed: false },
+          { id: "l1", title: "Opening with the problem", durationMin: 7, completed: false },
+          { id: "l2", title: "Building the narrative arc", durationMin: 9, completed: false },
         ],
       },
     ],
   },
   {
-    slug: "customer-escalations-playbook",
-    title: "Customer Escalations Playbook",
-    summary: "Step-by-step handling of tier-2 and tier-3 customer escalations across all regions.",
-    instructor: "Michael Eze",
-    instructorTitle: "Head of Customer Operations",
-    department: "Operations",
-    progress: 0,
-    status: "not-started",
-    mandatory: true,
-    modules: [
-      {
-        id: "m1",
-        title: "Triage",
-        lessons: [
-          { id: "l1", title: "Severity levels explained", durationMin: 7, completed: false },
-          { id: "l2", title: "First response templates", durationMin: 5, completed: false },
-        ],
-      },
-    ],
-  },
-  {
-    slug: "financial-controls-101",
-    title: "Financial Controls 101",
-    summary: "Approval thresholds, expense policy, and the controls finance expects every manager to know.",
-    instructor: "Grace Ibe",
-    instructorTitle: "Chief Financial Officer",
-    department: "Finance",
+    slug: "copywriting-fundamentals",
+    title: "Copywriting Fundamentals",
+    summary: "Writing clear, persuasive copy for product pages, emails, and campaigns that actually convert.",
+    instructor: "Eniola Ogunmekan",
+    instructorTitle: "Head of Marketing",
+    department: "Marketing",
     progress: 100,
     status: "completed",
-    mandatory: true,
+    mandatory: false,
     modules: [
       {
         id: "m1",
-        title: "Approval thresholds",
-        lessons: [{ id: "l1", title: "Who can approve what", durationMin: 9, completed: true }],
+        title: "Writing for clarity",
+        lessons: [{ id: "l1", title: "Cutting the fluff", durationMin: 9, completed: true }],
       },
     ],
   },
 ];
 
-export const instructorCourses = courses.filter((c) =>
-  ["Tunde Bakare", "Folake Adeyemi"].includes(c.instructor)
-);
-
 export const complianceRecords = [
-  { user: "Adaeze Okonkwo", department: "Customer Operations", course: "Data Protection Fundamentals", status: "In progress", lastActive: "2026-06-18" },
-  { user: "Ifeoma Chukwu", department: "Finance", course: "Financial Controls 101", status: "Completed", lastActive: "2026-06-10" },
-  { user: "Chidi Eze", department: "Customer Operations", course: "Customer Escalations Playbook", status: "Not started", lastActive: "—" },
-  { user: "Bisi Lawal", department: "Leadership", course: "Leading Through Change", status: "Completed", lastActive: "2026-06-15" },
-  { user: "Sade Bello", department: "Compliance", course: "Data Protection Fundamentals", status: "Completed", lastActive: "2026-06-12" },
+  { user: "Arinze Okafor", department: "Customer Operations", course: "Staff Policies, Handbook & Ethics", status: "In progress", lastActive: "2026-06-18" },
+  { user: "Amara Chukwu", department: "Finance", course: "Accounting Essentials", status: "Completed", lastActive: "2026-06-10" },
+  { user: "Bola Adeniran", department: "Sales", course: "Client Pitching", status: "Not started", lastActive: "—" },
+  { user: "Chidi Eze", department: "Marketing", course: "Copywriting Fundamentals", status: "Completed", lastActive: "2026-06-15" },
+  { user: "Dami Fashola", department: "Compliance", course: "Staff Policies, Handbook & Ethics", status: "Completed", lastActive: "2026-06-12" },
+  { user: "Emeka Uche", department: "Finance", course: "Accounting Essentials", status: "In progress", lastActive: "2026-06-17" },
 ];

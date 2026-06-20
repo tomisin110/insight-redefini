@@ -46,13 +46,13 @@ export default function CoursePage({ params }: { params: { slug: string } }) {
             </div>
 
             <div className="mt-6">
-              <h2 className="font-display text-xl text-ink mb-1">{firstIncomplete.title}</h2>
+              <h2 className="font-display font-bold text-xl text-ink mb-1">{firstIncomplete.title}</h2>
               <p className="font-mono text-[11px] text-slate uppercase tracking-wide">
                 {firstIncomplete.durationMin} min · Lesson resumes from where you left off
               </p>
             </div>
 
-            <div className="mt-8 border border-hairline p-5">
+            <div className="mt-8 card p-5">
               <ProgressBar value={course.progress} />
             </div>
           </div>

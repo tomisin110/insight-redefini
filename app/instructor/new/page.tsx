@@ -18,7 +18,7 @@ export default function NewCourse() {
               <input
                 type="text"
                 placeholder="e.g. Managing Vendor Contracts"
-                className="w-full border border-hairline bg-white px-3.5 py-2.5 text-sm focus:outline-none focus:border-brand"
+                className="w-full border border-hairline bg-surface rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand"
               />
             </div>
 
@@ -26,7 +26,7 @@ export default function NewCourse() {
               <label className="block font-mono text-[10px] uppercase tracking-wide text-slate mb-1.5">
                 Department
               </label>
-              <select className="w-full border border-hairline bg-white px-3.5 py-2.5 text-sm focus:outline-none focus:border-brand">
+              <select className="w-full border border-hairline bg-surface rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand">
                 <option>Compliance</option>
                 <option>Leadership</option>
                 <option>Operations</option>
@@ -41,7 +41,7 @@ export default function NewCourse() {
               <textarea
                 rows={4}
                 placeholder="What will staff be able to do after completing this course?"
-                className="w-full border border-hairline bg-white px-3.5 py-2.5 text-sm focus:outline-none focus:border-brand resize-none"
+                className="w-full border border-hairline bg-surface rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand resize-none"
               />
             </div>
 
@@ -56,7 +56,7 @@ export default function NewCourse() {
               <label className="block font-mono text-[10px] uppercase tracking-wide text-slate mb-1.5">
                 First lesson video
               </label>
-              <div className="border border-dashed border-hairline px-6 py-10 text-center">
+              <div className="border border-dashed border-hairline rounded-lg px-6 py-10 text-center">
                 <p className="text-sm text-ink">Drag a video file here, or click to browse</p>
                 <p className="font-mono text-[10px] text-slate uppercase tracking-wide mt-2">
                   MP4 or MOV · uploads directly and privately · no size limit
@@ -67,13 +67,13 @@ export default function NewCourse() {
             <div className="flex gap-3 pt-2">
               <button
                 type="button"
-                className="border border-hairline px-5 py-2.5 text-sm text-ink hover:border-ink transition-colors"
+                className="border border-hairline rounded-lg px-5 py-2.5 text-sm text-ink hover:border-brand hover:text-brand transition-colors"
               >
                 Save as draft
               </button>
               <button
                 type="button"
-                className="bg-ink text-paper px-5 py-2.5 text-sm hover:bg-brand transition-colors"
+                className="bg-brand text-white rounded-lg px-5 py-2.5 text-sm font-medium hover:bg-brand/90 transition-colors"
               >
                 Publish to staff
               </button>
