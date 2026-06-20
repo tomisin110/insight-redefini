@@ -24,7 +24,8 @@ export default function Sidebar({ active }: { active: string }) {
 
         <nav className="space-y-1">
           {links.map((link) => {
-            const isActive = active === link.href;
+            const isActive =
+              link.href === "/admin" ? active.startsWith("/admin") : active === link.href;
             return (
               <Link
                 key={link.href}

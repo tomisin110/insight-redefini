@@ -18,7 +18,7 @@ export default function Dashboard() {
       <div className="flex-1">
         <TopBar
           title={`Welcome back, ${persona.name.split(" ")[0]}`}
-          subtitle={persona.department}
+          subtitle={`${persona.jobRole} · ${persona.company}`}
         />
 
         <main className="p-6 md:p-10">

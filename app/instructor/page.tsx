@@ -58,9 +58,12 @@ export default function InstructorDesk() {
                     <ProgressBar value={course.progress} />
                     <div className="text-[11px] text-slate mt-2">Avg. across staff</div>
                   </div>
-                  <button className="text-xs font-medium text-slate hover:text-brand border border-hairline rounded-lg px-3 py-2 whitespace-nowrap">
+                  <Link
+                    href={`/instructor/edit/${course.slug}`}
+                    className="text-xs font-medium text-slate hover:text-brand border border-hairline rounded-lg px-3 py-2 whitespace-nowrap"
+                  >
                     Edit
-                  </button>
+                  </Link>
                 </div>
               ))}
             </div>

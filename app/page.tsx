@@ -22,7 +22,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen flex bg-paper">
-      <section className="hidden lg:flex lg:w-1/2 bg-ink text-white flex-col justify-between p-14">
+      <section className="hidden lg:flex lg:w-1/2 bg-[#15171A] text-white flex-col justify-between p-14">
         <img
           src="/logo.png"
           alt="Insight Redefini"
