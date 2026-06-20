@@ -37,8 +37,7 @@ export default function Home() {
             The institutional knowledge of this company, taught by the people who built it.
           </h1>
           <p className="text-white/70 mt-6 max-w-sm text-sm leading-relaxed">
-            Every course here is presented by a member of senior management.
-            Access is restricted to verified staff accounts only.
+            Built by us. Taught by us. For us only.
           </p>
         </div>
 

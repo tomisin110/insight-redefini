@@ -50,6 +50,25 @@ export default function InstructorDesk() {
                     </div>
                     <h3 className="font-display font-bold text-lg text-ink">{course.title}</h3>
                     <p className="text-slate text-sm mt-1 max-w-lg">{course.summary}</p>
+                    <div className="flex items-center gap-3 mt-2 text-xs text-slate">
+                      <span>
+                        Published{" "}
+                        {new Date(course.publishedAt).toLocaleDateString("en-GB", {
+                          day: "2-digit",
+                          month: "short",
+                          year: "numeric",
+                        })}
+                      </span>
+                      <span>·</span>
+                      <span>
+                        {course.targetCompanies.includes("All") ? "All companies" : course.targetCompanies.join(", ")}
+                      </span>
+                      {course.archived && (
+                        <span className="bg-slate/10 text-slate font-medium px-2 py-0.5 rounded-full">
+                          Archived
+                        </span>
+                      )}
+                    </div>
                     {persona.role === "admin" && (
                       <p className="text-xs text-slate mt-2">Instructor: {course.instructor}</p>
                     )}

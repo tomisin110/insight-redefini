@@ -4,12 +4,17 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Sidebar from "@/components/Sidebar";
 import TopBar from "@/components/TopBar";
+import MaterialsManager from "@/components/MaterialsManager";
+import AudienceSelector from "@/components/AudienceSelector";
 import { courses } from "@/lib/mock-data";
+import { usePersona } from "@/lib/persona-context";
 
 export default function EditCourse({ params }: { params: { slug: string } }) {
   const course = courses.find((c) => c.slug === params.slug);
   const router = useRouter();
+  const { persona } = usePersona();
   const [toast, setToast] = useState<string | null>(null);
+  const [confirmDelete, setConfirmDelete] = useState(false);
 
   if (!course) {
     return (
@@ -33,6 +38,21 @@ export default function EditCourse({ params }: { params: { slug: string } }) {
 
       <div className="flex-1">
         <TopBar title="Edit course" subtitle={course.title} />
+        <div className="px-6 md:px-10 pt-4 flex items-center gap-3 text-xs text-slate">
+          <span>
+            Published{" "}
+            {new Date(course.publishedAt).toLocaleDateString("en-GB", {
+              day: "2-digit",
+              month: "short",
+              year: "numeric",
+            })}
+          </span>
+          {course.archived && (
+            <span className="bg-slate/10 text-slate font-medium px-2 py-0.5 rounded-full">
+              Archived
+            </span>
+          )}
+        </div>
 
         <main className="p-6 md:p-10 max-w-3xl">
           <form
@@ -142,6 +162,13 @@ export default function EditCourse({ params }: { params: { slug: string } }) {
               </div>
             </div>
 
+            <AudienceSelector
+              initialCompanies={course.targetCompanies}
+              initialJobRoles={course.targetJobRoles}
+            />
+
+            <MaterialsManager initial={course.materials} />
+
             <div className="flex justify-between">
               <button
                 type="button"
@@ -166,6 +193,57 @@ export default function EditCourse({ params }: { params: { slug: string } }) {
                 </button>
               </div>
             </div>
+
+            {persona.role === "admin" && (
+              <div className="card p-6 border-rust/20">
+                <h2 className="text-sm font-semibold text-ink mb-1">Admin actions</h2>
+                <p className="text-xs text-slate mb-4">
+                  Archiving hides this course from staff but keeps records. Deleting removes it
+                  permanently, including completion history.
+                </p>
+                <div className="flex gap-3">
+                  <button
+                    type="button"
+                    onClick={() => flash(course.archived ? "Course unarchived." : "Course archived.")}
+                    className="border border-hairline rounded-lg px-5 py-2.5 text-sm text-ink hover:border-brand hover:text-brand transition-colors"
+                  >
+                    {course.archived ? "Unarchive course" : "Archive course"}
+                  </button>
+
+                  {!confirmDelete ? (
+                    <button
+                      type="button"
+                      onClick={() => setConfirmDelete(true)}
+                      className="border border-brand/30 text-brand rounded-lg px-5 py-2.5 text-sm font-medium hover:bg-brand/10 transition-colors"
+                    >
+                      Delete course
+                    </button>
+                  ) : (
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm text-ink">Delete permanently?</span>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          flash("Course deleted.");
+                          setConfirmDelete(false);
+                          router.push("/instructor");
+                        }}
+                        className="bg-brand text-white rounded-lg px-4 py-2 text-sm font-medium hover:bg-brand/90"
+                      >
+                        Confirm delete
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setConfirmDelete(false)}
+                        className="text-sm text-slate hover:text-ink px-2"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
           </form>
         </main>
       </div>

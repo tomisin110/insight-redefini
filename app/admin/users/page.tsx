@@ -18,6 +18,7 @@ export default function UsersPage() {
   const [toast, setToast] = useState<string | null>(null);
   const [companyFilter, setCompanyFilter] = useState<string>("All companies");
   const [roleFilter, setRoleFilter] = useState<string>("All job roles");
+  const [accessFilter, setAccessFilter] = useState<string>("All accounts");
 
   const [newName, setNewName] = useState("");
   const [newEmail, setNewEmail] = useState("");
@@ -39,6 +40,21 @@ export default function UsersPage() {
       prev.map((a) =>
         a.id === id ? { ...a, status: a.status === "suspended" ? "active" : "suspended" } : a
       )
+    );
+  }
+
+  function toggleInstructor(id: string) {
+    setAccounts((prev) =>
+      prev.map((a) => {
+        if (a.id !== id) return a;
+        const nextRole = a.role === "instructor" ? "staff" : "instructor";
+        flash(
+          nextRole === "instructor"
+            ? `${a.name} can now create and present courses.`
+            : `${a.name} is now a staff account.`
+        );
+        return { ...a, role: nextRole };
+      })
     );
   }
 
@@ -72,10 +88,13 @@ export default function UsersPage() {
       accounts.filter(
         (a) =>
           (companyFilter === "All companies" || a.company === companyFilter) &&
-          (roleFilter === "All job roles" || a.jobRole === roleFilter)
+          (roleFilter === "All job roles" || a.jobRole === roleFilter) &&
+          (accessFilter === "All accounts" || a.role === accessFilter)
       ),
-    [accounts, companyFilter, roleFilter]
+    [accounts, companyFilter, roleFilter, accessFilter]
   );
+
+  const instructorCount = accounts.filter((a) => a.role === "instructor").length;
 
   return (
     <div className="flex min-h-screen">
@@ -86,8 +105,31 @@ export default function UsersPage() {
         <AdminTabs />
 
         <main className="p-6 md:p-10">
+          <div className="card p-4 mb-6 flex items-center justify-between bg-brand/5 border-brand/20">
+            <p className="text-sm text-ink">
+              <span className="font-semibold">{instructorCount}</span> instructor account
+              {instructorCount === 1 ? "" : "s"} can currently create and publish courses.
+            </p>
+            <button
+              onClick={() => setAccessFilter("instructor")}
+              className="text-xs font-medium text-brand border border-brand/30 rounded-lg px-3 py-1.5 hover:bg-brand/10 whitespace-nowrap"
+            >
+              View instructors
+            </button>
+          </div>
+
           <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
             <div className="flex flex-wrap gap-2">
+              <select
+                value={accessFilter}
+                onChange={(e) => setAccessFilter(e.target.value)}
+                className="border border-hairline bg-surface rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand"
+              >
+                <option value="All accounts">All accounts</option>
+                <option value="staff">Staff only</option>
+                <option value="instructor">Instructors only</option>
+                <option value="admin">Admins only</option>
+              </select>
               <select
                 value={companyFilter}
                 onChange={(e) => setCompanyFilter(e.target.value)}
@@ -217,6 +259,14 @@ export default function UsersPage() {
                     <td className="py-3.5 px-5 text-xs text-slate">{a.lastLogin}</td>
                     <td className="py-3.5 px-5">
                       <div className="flex gap-2 justify-end">
+                        {a.role !== "admin" && (
+                          <button
+                            onClick={() => toggleInstructor(a.id)}
+                            className="text-xs font-medium text-slate hover:text-brand border border-hairline rounded-lg px-3 py-1.5 whitespace-nowrap"
+                          >
+                            {a.role === "instructor" ? "Demote to staff" : "Make instructor"}
+                          </button>
+                        )}
                         <button
                           onClick={() => resetPassword(a.name)}
                           className="text-xs font-medium text-slate hover:text-brand border border-hairline rounded-lg px-3 py-1.5 whitespace-nowrap"

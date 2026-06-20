@@ -90,6 +90,27 @@ export default function CoursePage({ params }: { params: { slug: string } }) {
                 </div>
               ))}
             </div>
+
+            {course.materials.length > 0 && (
+              <div className="mt-8">
+                <h3 className="text-xs font-semibold uppercase tracking-wide text-slate mb-3">
+                  Materials
+                </h3>
+                <ul className="space-y-2">
+                  {course.materials.map((m) => (
+                    <li key={m.id}>
+                      <a
+                        href={m.url}
+                        className="flex items-center gap-2 text-sm text-ink hover:text-brand border border-hairline rounded-lg px-3 py-2"
+                      >
+                        <span>{m.type === "slides" ? "📊" : m.type === "pdf" ? "📄" : "🔗"}</span>
+                        {m.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </aside>
         </main>
       </div>

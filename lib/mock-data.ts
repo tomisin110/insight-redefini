@@ -32,21 +32,24 @@ export type Persona = {
   company: Company;
   jobRole: string;
   avatarColor: string;
+  streakDays: number;
 };
 
 export const personas: Persona[] = [
-  { id: "arinze", name: "Arinze Okafor", initials: "AO", role: "staff", company: "Leo Burnett", jobRole: "Account Manager", avatarColor: "bg-blue-600" },
-  { id: "kemi", name: "Kemi Onatoye", initials: "KO", role: "instructor", company: "IR", jobRole: "Finance Officer", avatarColor: "bg-purple-600" },
-  { id: "ayo", name: "Ayo Owoeye", initials: "AY", role: "instructor", company: "IR", jobRole: "Strategy", avatarColor: "bg-emerald-600" },
-  { id: "seyi", name: "Oluwaseyi Layade", initials: "OL", role: "instructor", company: "Leo Burnett", jobRole: "Strategy", avatarColor: "bg-amber-500" },
-  { id: "eniola", name: "Eniola Ogunmekan", initials: "EO", role: "instructor", company: "Publicis Nourish", jobRole: "Art Director", avatarColor: "bg-rose-500" },
-  { id: "gabriel", name: "Gabriel Babatunde", initials: "GB", role: "admin", company: "IR", jobRole: "Strategy", avatarColor: "bg-slate-700" },
+  { id: "arinze", name: "Arinze Okafor", initials: "AO", role: "staff", company: "Leo Burnett", jobRole: "Account Manager", avatarColor: "bg-blue-600", streakDays: 4 },
+  { id: "kemi", name: "Kemi Onatoye", initials: "KO", role: "instructor", company: "IR", jobRole: "Finance Officer", avatarColor: "bg-purple-600", streakDays: 11 },
+  { id: "ayo", name: "Ayo Owoeye", initials: "AY", role: "instructor", company: "IR", jobRole: "Strategy", avatarColor: "bg-emerald-600", streakDays: 8 },
+  { id: "seyi", name: "Oluwaseyi Layade", initials: "OL", role: "instructor", company: "Leo Burnett", jobRole: "Strategy", avatarColor: "bg-amber-500", streakDays: 2 },
+  { id: "eniola", name: "Eniola Ogunmekan", initials: "EO", role: "instructor", company: "Publicis Nourish", jobRole: "Art Director", avatarColor: "bg-rose-500", streakDays: 6 },
+  { id: "gabriel", name: "Gabriel Babatunde", initials: "GB", role: "admin", company: "IR", jobRole: "Strategy", avatarColor: "bg-slate-700", streakDays: 15 },
 ];
 
 export const defaultPersona = personas[0];
 
 export type Lesson = { id: string; title: string; durationMin: number; completed: boolean };
 export type Module = { id: string; title: string; lessons: Lesson[] };
+
+export type Material = { id: string; name: string; type: "slides" | "pdf" | "link"; url: string };
 
 export type Course = {
   slug: string;
@@ -59,6 +62,11 @@ export type Course = {
   status: "not-started" | "in-progress" | "completed";
   modules: Module[];
   mandatory: boolean;
+  materials: Material[];
+  targetCompanies: string[]; // ["All"] or specific company names
+  targetJobRoles: string[]; // ["All"] or specific job role names
+  publishedAt: string;
+  archived: boolean;
 };
 
 export const courses: Course[] = [
@@ -72,6 +80,14 @@ export const courses: Course[] = [
     progress: 65,
     status: "in-progress",
     mandatory: true,
+    targetCompanies: ["All"],
+    targetJobRoles: ["Finance Officer", "Account Manager", "Strategy"],
+    publishedAt: "2026-04-02",
+    archived: false,
+    materials: [
+      { id: "mat1", name: "Month-end close checklist.pdf", type: "pdf", url: "#" },
+      { id: "mat2", name: "Accounting Essentials — slide deck", type: "slides", url: "#" },
+    ],
     modules: [
       { id: "m1", title: "Reading a P&L", lessons: [
         { id: "l1", title: "Revenue vs. margin", durationMin: 8, completed: true },
@@ -93,6 +109,14 @@ export const courses: Course[] = [
     progress: 20,
     status: "in-progress",
     mandatory: true,
+    targetCompanies: ["All"],
+    targetJobRoles: ["All"],
+    publishedAt: "2026-03-15",
+    archived: false,
+    materials: [
+      { id: "mat1", name: "Employee Handbook 2026.pdf", type: "pdf", url: "#" },
+      { id: "mat2", name: "Whistleblower policy", type: "link", url: "#" },
+    ],
     modules: [
       { id: "m1", title: "The employee handbook", lessons: [
         { id: "l1", title: "Code of conduct", durationMin: 10, completed: true },
@@ -113,6 +137,11 @@ export const courses: Course[] = [
     progress: 0,
     status: "not-started",
     mandatory: false,
+    targetCompanies: ["Leo Burnett"],
+    targetJobRoles: ["Account Manager", "Strategy"],
+    publishedAt: "2026-05-20",
+    archived: false,
+    materials: [{ id: "mat1", name: "Pitch deck template.pptx", type: "slides", url: "#" }],
     modules: [
       { id: "m1", title: "Structuring the pitch", lessons: [
         { id: "l1", title: "Opening with the problem", durationMin: 7, completed: false },
@@ -130,6 +159,11 @@ export const courses: Course[] = [
     progress: 100,
     status: "completed",
     mandatory: false,
+    targetCompanies: ["Publicis Nourish", "QMSL", "SMP"],
+    targetJobRoles: ["Copywriter", "Art Director"],
+    publishedAt: "2026-05-28",
+    archived: false,
+    materials: [{ id: "mat1", name: "Brand voice guidelines", type: "link", url: "#" }],
     modules: [
       { id: "m1", title: "Writing for clarity", lessons: [
         { id: "l1", title: "Cutting the fluff", durationMin: 9, completed: true },
